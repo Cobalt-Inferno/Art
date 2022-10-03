@@ -4,6 +4,46 @@ mkdir ~/.config
 browser="firefox"
 terminal="kitty"
 root="sudo"
+pacman -Syy
+host="$USER"
+installqemukvm=true
+installvirtbox=false
+
+qemukvmpkgs=(
+    libvirt
+    virt-viewer
+    dnsmasq
+    vde2
+    bridge-utils
+    openbsd-netcat
+    ebtables
+    libguestfs
+    qemu-arch-extra
+    ovmf
+    edk2-armvirt
+)
+qemukvmcmds=(
+    "$root modprobe -r kvm_intel"
+    "$root modprobe kvm_intel nested=1"
+    "$root systemctl enable --now libvirtd"
+    "echo \"options kvm-intel nested=1\" | sudo tee /etc/modprobe.d/kvm-intel.conf"
+    "$root usermod -a -G libvirt $host"
+    "$root echo \"unix_sock_group = \"libvirt\"\" >> /etc/libvirt/libvirtd.conf"
+    "$root echo \"unix_sock_rw_perms= \"0770\"\" >> /etc/libvirt/libvirtd.conf"
+    "$root systemctl restart libvirtd"
+    "$root systemctl enable virtlogd"
+    "$root systemctl start virtlogd"
+    "$root virt net-start default"
+    "$root virsh net-autostart default"
+)   
+
+virtboxpkgs=(
+    virtualbox
+    virtualbox-guest-iso
+)
+virtboxcmds=(
+    "$root modprobe -a vboxguest vboxsf vboxvideo"
+)
 
 aurpkgs=(
     vim-plug
@@ -34,6 +74,8 @@ pacmanpkgs=(
     libnotify
     flameshot
     rofi
+    openssh
+    openssl
 )    
 xinitlines=(
     "picom --experimental-backends &"
@@ -82,8 +124,13 @@ installdotfile() {
     mv * "$3"
 }
 
+updatemirrorlist() {
+    cc=$(sed -e 's/^"//' -e 's/"$//' <<<$(curl -s ipinfo.io/ | jq ".country"))
+    reflector --country "$cc" > "$repodir/mirrorlist"
+    cp "$repodir/mirrorlist /etc/pacman.d/mirrorlist"
+}
+updatemirrorlist
 "$root" pacman -S git --noconfirm
-
 for i in "${aurpkgs[@]}"
 do
     manualinstall "$i"
@@ -94,6 +141,8 @@ do
 done 
 # install my dotfiles
 
+
+
 makeinstall kavulox dwm
 makeinstall kavulox dwmblocks
 installdotfile kavulox emacs ~/.emacs.d
@@ -102,5 +151,25 @@ installdotfile kavulox picom ~/.config/picom
 
 cleartmpdir
 makeinit ~/.xtmp
+
+if [ "$installvirtbox" = true ]
+then
+    for i in "${virtboxpkgs[@]}"
+        "$root" pacman -S "$i" --noconfirm
+    done
+    for i in "${virtboxcmds[@]}"
+         /bin/sh -c "$i"
+    done
+fi
+if [ "$installqemukvm" = true ]
+then
+    for i in "${qemukvmpkgs[@]}"
+        "$root" pacman -S "$i" --noconfirm
+    done
+    for i in "${qemukvmcmds[@]}"
+         /bin/sh -c "$i"
+    done
+fi
+
 # trigger emacs installation
 emacs --daemon
