@@ -1,8 +1,10 @@
 repodir="/tmp/repodir"
 mkdir "$repodir"
+mkdir ~/.config
 browser="firefox"
 terminal="kitty"
 root="sudo"
+
 aurpkgs=(
     vim-plug
     yay
@@ -30,6 +32,7 @@ pacmanpkgs=(
     dunst
     libnotify
     flameshot
+    rofi
 )    
 xinitlines=(
     "picom -b"
@@ -58,7 +61,7 @@ manualinstall() {
     then
         cd "$repodir/$1"
         echo "Building package: $1"
-        makepkg --noconfirm -si >/dev/null || return 1
+        makepkg --noconfirm -si || return 1
     else
         echo "Error cloning $1 to directory $repodir/$1"
     fi
