@@ -2,7 +2,7 @@ repodir="/tmp/repodir"
 mkdir "$repodir"
 browser="firefox"
 terminal="kitty"
-
+root="sudo"
 aurpkgs=(
     vim-plug
     yay
@@ -66,7 +66,7 @@ manualinstall() {
 makeinstall() {
     git clone "https://github.com/$1/$2" "$repodir/$1/$2"
     cd "$repodir/$1/$2"
-    make clean install
+    "$root" make clean install
 }
 
 installdotfile() {
@@ -76,7 +76,7 @@ installdotfile() {
     mv * "$3"
 }
 
-pacman -S git --noconfirm
+"$root" pacman -S git --noconfirm
 
 for i in "${aurpkgs[@]}"
 do
@@ -84,7 +84,7 @@ do
 done
 for i in "${pacmanpkgs[@]}"
 do
-    pacman -S "$i" --noconfirm
+    "$root" pacman -S "$i" --noconfirm
 done 
 # install my dotfiles
 
