@@ -16,7 +16,8 @@ neededpkgs=(
 )
 
 for i in "${neededpkgs[@]}"
-    "$root" pacman -S "$i"
+do
+    "$root" pacman -S "$i" --noconfirm
 done
 
 qemukvmpkgs=(
