@@ -99,6 +99,7 @@ installdotfile kavulox emacs ~/.emacs.d
 installdotfile kavulox nvim ~/.config/nvim
 installdotfile kavulox picom ~/.config/picom
 
-
 cleartmpdir
 makeinit ~/.xtmp
+# trigger emacs installation
+emacs --daemon
