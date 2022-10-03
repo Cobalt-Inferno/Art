@@ -13,6 +13,7 @@ aurpkgs=(
 pacmanpkgs=(
     feh
     emacs
+    cmake
     vim
     neovim
     "$browser"
