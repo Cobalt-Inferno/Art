@@ -41,6 +41,7 @@ xinitlines=(
     "dunst &"
     "flameshot &"
     "~/.fehbg"
+    "exec dwm"
 )
 makeinit() {
     for i in "${xinitlines[@]}"
