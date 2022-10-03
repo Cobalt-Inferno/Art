@@ -9,6 +9,16 @@ host="$USER"
 installqemukvm=true
 installvirtbox=false
 
+
+neededpkgs=(
+    jq
+    reflector
+)
+
+for i in "${neededpkgs[@]}"
+    "$root" pacman -S "$i"
+done
+
 qemukvmpkgs=(
     libvirt
     virt-viewer
