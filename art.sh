@@ -166,18 +166,22 @@ makeinit ~/.xtmp
 if [ "$installvirtbox" = true ]
 then
     for i in "${virtboxpkgs[@]}"
+    do
         "$root" pacman -S "$i" --noconfirm
     done
     for i in "${virtboxcmds[@]}"
+    do
          /bin/sh -c "$i"
     done
 fi
 if [ "$installqemukvm" = true ]
 then
     for i in "${qemukvmpkgs[@]}"
+    do
         "$root" pacman -S "$i" --noconfirm
     done
     for i in "${qemukvmcmds[@]}"
+    do
          /bin/sh -c "$i"
     done
 fi
