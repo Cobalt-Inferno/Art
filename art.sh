@@ -20,7 +20,7 @@ pacmanpkgs=(
     doas
     networkmanager
     imlib2
-    xorg-xinit
+    xorg
     xorg-xinit
     base-devel
     bluez
