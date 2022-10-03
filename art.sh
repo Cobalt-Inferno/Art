@@ -57,6 +57,7 @@ manualinstall() {
     if [ -d "$repodir/$1" ]
     then
         cd "$repodir/$1"
+        echo "Building package: $1"
         makepkg --noconfirm -si >/dev/null || return 1
     else
         echo "Error cloning $1 to directory $repodir/$1"
