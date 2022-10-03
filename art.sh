@@ -65,6 +65,7 @@ pacmanpkgs=(
     feh
     emacs
     cmake
+    ttf-inconsolata
     vim
     neovim
     "$browser"
