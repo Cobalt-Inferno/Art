@@ -35,7 +35,7 @@ pacmanpkgs=(
     rofi
 )    
 xinitlines=(
-    "picom -b"
+    "picom --experimental-backends &"
     "emacs --daemon &"
     "dwmblocks &"
     "dunst &"
@@ -43,7 +43,7 @@ xinitlines=(
     "~/.fehbg"
 )
 makeinit() {
-    for i in "${array[@]}"
+    for i in "${xinitlines[@]}"
     do
         echo "$i" >> "$1"
     done
