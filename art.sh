@@ -4,7 +4,6 @@ mkdir ~/.config
 browser="firefox"
 terminal="kitty"
 root="sudo"
-pacman -Syy
 host="$USER"
 installqemukvm=true
 installvirtbox=false
@@ -15,6 +14,7 @@ neededpkgs=(
     reflector
 )
 
+"$root" pacman -Syy
 for i in "${neededpkgs[@]}"
 do
     "$root" pacman -S "$i" --noconfirm
@@ -46,7 +46,7 @@ qemukvmcmds=(
     "$root systemctl start virtlogd"
     "$root virt net-start default"
     "$root virsh net-autostart default"
-)   
+)
 
 virtboxpkgs=(
     virtualbox
@@ -87,7 +87,7 @@ pacmanpkgs=(
     rofi
     openssh
     openssl
-)    
+)
 xinitlines=(
     "picom --experimental-backends &"
     "emacs --daemon &"
@@ -149,7 +149,7 @@ done
 for i in "${pacmanpkgs[@]}"
 do
     "$root" pacman -S "$i" --noconfirm
-done 
+done
 # install my dotfiles
 
 
