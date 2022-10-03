@@ -27,10 +27,24 @@ pacmanpkgs=(
     pulseaudio
     pulseaudio-bluetooth
     pavucontrol
+    dunst
+    libnotify
+    flameshot
 )    
-
-
-
+xinitlines=(
+    "picom -b"
+    "emacs --daemon &"
+    "dwmblocks &"
+    "dunst &"
+    "flameshot &"
+    "~/.fehbg"
+)
+makeinit() {
+    for i in "${array[@]}"
+    do
+        echo "$i" >> "$1"
+    done
+}
 cleartmpdir() {
     if [ -d "$repodir" ]
     then
@@ -82,3 +96,4 @@ installdotfile kavulox picom ~/.config/picom
 
 
 cleartmpdir
+makeinit ~/.xtmp
