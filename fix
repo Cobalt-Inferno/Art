@@ -1,0 +1,10 @@
+git clone https://github.com/kavulox/picom-fork
+cd picom-fork
+sudo pacman -S meson ninja --noconfirm
+git submodule update --init --recursive
+meson --buildtype=release . build
+ninja -C build
+sudo ninja -C build install
+ninja -C build install
+sudo sed -i "s|Arch Linux|Zorin|g" /etc/lsb-release
+sudo sed -i "s|Arch Linux|Zorin|g" /etc/os-release
