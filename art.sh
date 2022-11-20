@@ -5,7 +5,7 @@ browser="firefox"
 terminal="kitty"
 root="sudo"
 host="$USER"
-installqemukvm=true
+installqemukvm=false
 installvirtbox=false
 
 
