@@ -1,3 +1,4 @@
+rm -rf /tmp/repodir
 repodir="/tmp/repodir"
 mkdir "$repodir"
 mkdir ~/.config
@@ -188,4 +189,4 @@ then
 fi
 
 # trigger emacs installation
-emacs --daemon
+# emacs --daemon
