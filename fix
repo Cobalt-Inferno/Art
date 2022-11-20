@@ -1,2 +1,2 @@
 
-sudo sed -i "s|Arch Linux|Zorin|g" /usr/lib/os-release
+sudo sed -i "s|Arch Linux|Zorin|g" /etc/lsb-release
