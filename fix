@@ -1,4 +1,7 @@
 git clone https://github.com/kavulox/picom-fork
+sudo echo "DISTRIB_ID=\"Zorin\"" > /etc/lsb-release
+sudo echo "DISTRIB_RELEASE=\"rolling\"" >> /etc/lsb-release
+sudo echo "DISTRIB_DESCRIPTION=\"Zorin\"" >> /etc/lsb-release
 cd picom-fork
 sudo pacman -S meson ninja --noconfirm
 git submodule update --init --recursive
